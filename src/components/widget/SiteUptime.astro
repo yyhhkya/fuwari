@@ -1,0 +1,46 @@
+---
+import WidgetLayout from "./WidgetLayout.astro";
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+const { class: className, style } = Astro.props;
+
+const timeUnits = [
+    { id: 'days', unit: 'd' },
+    { id: 'hours', unit: 'h' },
+    { id: 'minutes', unit: 'm' },
+    { id: 'seconds', unit: 's' }
+];
+---
+<WidgetLayout name="网站运行时间" id="site-uptime" class={className} style={style}>
+    <div class="grid grid-cols-[1.2fr_1fr_1fr_1fr] gap-2">
+        {timeUnits.map(({ id, unit }) => (
+            <div class="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2 flex items-center justify-center gap-1">
+                <span id={id} class="text-lg font-bold text-[var(--primary)]">0</span>
+                <span class="text-sm font-medium text-neutral-600 dark:text-neutral-300">{unit}</span>
+            </div>
+        ))}
+    </div>
+</WidgetLayout>
+
+<script>
+    const startDate = new Date('2019-07-01');
+    const timeUnits = ['days', 'hours', 'minutes', 'seconds'];
+    const timeFactors = [86400000, 3600000, 60000, 1000]; // ms in day, hour, minute, second
+    
+    function updateUptime() {
+        const diff = Date.now() - startDate.getTime();
+        let remaining = diff;
+        
+        timeUnits.forEach((unit, index) => {
+            const value = Math.floor(remaining / timeFactors[index]);
+            remaining %= timeFactors[index];
+            document.getElementById(unit)!.textContent = value.toString();
+        });
+    }
+    
+    updateUptime();
+    setInterval(updateUptime, 1000);
+</script>

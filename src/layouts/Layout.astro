@@ -379,39 +379,39 @@ function init() {
 init();
 
 // Runtime badge functionality
-let runtimeInterval: number | null = null;
+// let runtimeInterval: number | null = null;
 
-function initRuntimeBadge() {
-	const startTime = new Date('2019-07-01');
-	const badge = document.getElementById('run-time-badge');
+// function initRuntimeBadge() {
+// 	const startTime = new Date('2019-07-01');
+// 	const badge = document.getElementById('run-time-badge');
 	
-	// Clear existing interval if any
-	if (runtimeInterval) {
-		clearInterval(runtimeInterval);
-		runtimeInterval = null;
-	}
+// 	// Clear existing interval if any
+// 	if (runtimeInterval) {
+// 		clearInterval(runtimeInterval);
+// 		runtimeInterval = null;
+// 	}
 	
-	if (!badge) return;
+// 	if (!badge) return;
 	
-	function updateBadge() {
-		const diff = Date.now() - startTime.getTime();
-		const days = Math.floor(diff / 86400000);
-		const hours = Math.floor((diff % 86400000) / 3600000);
-		const minutes = Math.floor((diff % 3600000) / 60000);
-		const seconds = Math.floor((diff % 60000) / 1000);
+// 	function updateBadge() {
+// 		const diff = Date.now() - startTime.getTime();
+// 		const days = Math.floor(diff / 86400000);
+// 		const hours = Math.floor((diff % 86400000) / 3600000);
+// 		const minutes = Math.floor((diff % 3600000) / 60000);
+// 		const seconds = Math.floor((diff % 60000) / 1000);
 		
-		const time = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-		const label = encodeURIComponent('网站已稳定运行');
-		const message = encodeURIComponent(time);
-		badge.src = `https://img.shields.io/badge/${label}-${message}-brightgreen`;
-	}
+// 		const time = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+// 		const label = encodeURIComponent('网站已稳定运行');
+// 		const message = encodeURIComponent(time);
+// 		badge.src = `https://img.shields.io/badge/${label}-${message}-brightgreen`;
+// 	}
 	
-	updateBadge();
-	runtimeInterval = setInterval(updateBadge, 1000);
-}
+// 	updateBadge();
+// 	runtimeInterval = setInterval(updateBadge, 1000);
+// }
 
-// Initialize runtime badge on page load
-initRuntimeBadge();
+// // Initialize runtime badge on page load
+// initRuntimeBadge();
 
 const setup = () => {
 	// TODO: temp solution to change the height of the banner
@@ -473,7 +473,7 @@ const setup = () => {
 		}
 		
 		// Re-initialize runtime badge after page transition
-		initRuntimeBadge();
+		// initRuntimeBadge();
 	});
 	window.swup.hooks.on('visit:end', (_visit: {to: {url: string}}) => {
 		setTimeout(() => {
