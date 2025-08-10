@@ -10,11 +10,7 @@ GITHUB_TOKEN=""                 # GitHub Token (至少需要 public_repo 权限)
 
 # 获取脚本所在目录
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOWNLOAD_DIR="$SCRIPT_DIR/downloads"    # 下载文件保存目录
 STATE_FILE="$SCRIPT_DIR/last_build_id"  # 状态文件
-
-# 创建下载目录
-mkdir -p "$DOWNLOAD_DIR"
 
 # 获取最新成功的构建ID
 get_latest_build_id() {
@@ -46,11 +42,11 @@ download_artifact() {
         return 1
     fi
     
-    # 下载到脚本目录
+    # 下载到临时文件
     local download_url="https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/actions/artifacts/$artifact_id/zip"
-    local zip_file="$DOWNLOAD_DIR/astro-site-$build_id.zip"
+    local zip_file=$(mktemp --suffix=.zip)
     
-    echo "💾 下载到: $zip_file"
+    echo "💾 临时下载到: $zip_file"
     eval "curl -L $auth -o \"$zip_file\" \"$download_url\""
     
     if [ $? -eq 0 ]; then
@@ -67,17 +63,20 @@ download_artifact() {
         cp -r "$temp_dir"/* "$DEPLOY_DIR"/
         chmod -R 755 "$DEPLOY_DIR"
         
-        # 清理临时目录
+        # 清理临时文件和目录
         rm -rf "$temp_dir"
+        rm -f "$zip_file"
         
         echo "🎉 部署完成"
-        echo "📁 下载文件保存在: $zip_file"
         echo "📁 网站部署在: $DEPLOY_DIR"
+        echo "🗑️ 临时文件已清理"
         
         # 记录这次的构建ID
         echo "$build_id" > "$STATE_FILE"
     else
         echo "❌ 下载失败"
+        # 清理失败的下载文件
+        rm -f "$zip_file"
         return 1
     fi
 }
@@ -85,10 +84,30 @@ download_artifact() {
 # 主逻辑
 main() {
     # 检查配置
-    if [ "$GITHUB_OWNER" = "your-username" ]; then
+    if [ "$GITHUB_OWNER" = "your-username" ] || [ -z "$GITHUB_OWNER" ]; then
         echo "❌ 请先修改脚本中的 GITHUB_OWNER 变量"
         exit 1
     fi
+    
+    if [ -z "$GITHUB_REPO" ]; then
+        echo "❌ 请先修改脚本中的 GITHUB_REPO 变量"
+        exit 1
+    fi
+    
+    if [ -z "$DEPLOY_DIR" ]; then
+        echo "❌ 请先修改脚本中的 DEPLOY_DIR 变量"
+        echo "⚠️  DEPLOY_DIR 不能为空，这会导致危险的文件操作！"
+        exit 1
+    fi
+    
+    # 检查部署目录是否为根目录或系统重要目录
+    case "$DEPLOY_DIR" in
+        "/" | "/bin" | "/usr" | "/etc" | "/var" | "/home" | "/root")
+            echo "❌ 部署目录不能是系统重要目录: $DEPLOY_DIR"
+            echo "⚠️  这会导致系统文件被覆盖！"
+            exit 1
+            ;;
+    esac
     
     # 检查 GitHub Token
     if [ -z "$GITHUB_TOKEN" ]; then
