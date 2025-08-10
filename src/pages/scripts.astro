@@ -1,0 +1,38 @@
+---
+import { getEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+const scriptsPost = await getEntry("spec", "scripts");
+
+if (!scriptsPost) {
+	throw new Error("Scripts page content not found");
+}
+
+const { Content, headings } = await render(scriptsPost);
+---
+<MainGridLayout title="常用脚本" description="收集常用的脚本和代码片段" headings={headings}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+        <div id="post-container" class="card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full">
+            <!-- title -->
+            <div class="relative onload-animation">
+                <div
+                    data-pagefind-body data-pagefind-weight="10" data-pagefind-meta="title"
+                    class="transition w-full block font-bold mb-3
+                    text-3xl md:text-[2.25rem]/[2.75rem]
+                    text-black/90 dark:text-white/90
+                    md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+                    before:absolute before:top-[0.75rem] before:left-[-1.125rem]
+                ">
+                    常用脚本
+                </div>
+            </div>
+
+            <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>
+
+            <Markdown class="mb-6 markdown-content onload-animation">
+                <Content />
+            </Markdown>
+        </div>
+    </div>
+</MainGridLayout>
