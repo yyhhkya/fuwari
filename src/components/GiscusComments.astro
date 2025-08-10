@@ -64,10 +64,10 @@ const containerId = `giscus-container-${Math.random().toString(36).substr(2, 9)}
                                         theme: theme
                                     }
                                 }
-                            }, 'https://giscus.app');
+                            }, '*');
                         } catch (error) {
-                            // 忽略跨域错误，这在本地开发环境中是正常的
-                            console.debug('Giscus theme update failed (expected in local development):', error.message);
+                            // 忽略跨域错误
+                            console.debug('Giscus theme update failed:', error.message);
                         }
                     }
                 }
