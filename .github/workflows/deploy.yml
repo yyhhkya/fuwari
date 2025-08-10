@@ -1,4 +1,4 @@
-name: Deploy Astro site
+name: Auth Build
 
 on:
   push:
