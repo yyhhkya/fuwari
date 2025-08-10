@@ -28,7 +28,7 @@
 
 - **博客名称：** Wer Blog
 - **博客地址：** https://blog.isyyo.com
-- **头像地址：** https://blog.isyyo.com/upload/favicon.ico
+- **头像地址：** https://blog.isyyo.com/favicon/logo.png
 - **简介：** The only way to do great is to love what you do
 - **联系邮箱：** i@hiwer.cn
 
