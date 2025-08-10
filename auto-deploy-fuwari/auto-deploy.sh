@@ -3,10 +3,10 @@
 # 最简单的GitHub Actions产物自动下载脚本
 # 配置这4个变量即可使用
 
-GITHUB_OWNER="yyhhkya"          # 你的GitHub用户名
-GITHUB_REPO="fuwari"            # 仓库名
-DEPLOY_DIR="/var/www/html"      # 解压部署到的目录
-GITHUB_TOKEN=""                 # GitHub Token (私有仓库需要)
+GITHUB_OWNER=""          # 你的GitHub用户名
+GITHUB_REPO=""            # 仓库名
+DEPLOY_DIR="/opt/1panel/www/sites/demo/index"      # 解压部署到的目录
+GITHUB_TOKEN=""                 # GitHub Token (至少需要 public_repo 权限)
 
 # 获取脚本所在目录
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -87,6 +87,17 @@ main() {
     # 检查配置
     if [ "$GITHUB_OWNER" = "your-username" ]; then
         echo "❌ 请先修改脚本中的 GITHUB_OWNER 变量"
+        exit 1
+    fi
+    
+    # 检查 GitHub Token
+    if [ -z "$GITHUB_TOKEN" ]; then
+        echo "❌ 需要设置 GITHUB_TOKEN"
+        echo "📝 请按以下步骤创建 Token："
+        echo "   1. 访问 https://github.com/settings/tokens"
+        echo "   2. 点击 'Generate new token (classic)'"
+        echo "   3. 选择权限: actions:read"
+        echo "   4. 复制生成的 token 并设置到脚本中"
         exit 1
     fi
     
