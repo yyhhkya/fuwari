@@ -2,6 +2,7 @@
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import GiscusComments from "@components/GiscusComments.astro";
 
 const scriptsPost = await getEntry("spec", "scripts");
 
@@ -32,7 +33,10 @@ const { Content, headings } = await render(scriptsPost);
 
             <Markdown class="mb-6 markdown-content onload-animation">
                 <Content />
+                <hr>
             </Markdown>
+            <!-- 评论区 -->
+            <GiscusComments />
         </div>
     </div>
 </MainGridLayout>

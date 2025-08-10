@@ -5,6 +5,7 @@ import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import GiscusComments from "@components/GiscusComments.astro";
 
 const aboutPost = await getEntry("spec", "about");
 
@@ -19,7 +20,10 @@ const { Content } = await render(aboutPost);
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <Markdown class="mt-2">
                 <Content />
+                <hr>
             </Markdown>
+            <!-- 评论区 -->
+            <GiscusComments />
         </div>
     </div>
 </MainGridLayout>

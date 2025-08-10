@@ -13,6 +13,7 @@ import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
+import GiscusComments from "@components/GiscusComments.astro";
 
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
@@ -110,86 +111,7 @@ const jsonLd = {
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
             <!-- 评论区 -->
-            <div id="giscus-container"></div>
-            <script>
-                // 获取当前主题
-                function getCurrentTheme() {
-                    const isDark = document.documentElement.classList.contains('dark');
-                    return isDark ? 'dark' : 'light';
-                }
-
-                // 加载 Giscus
-                function loadGiscus() {
-                    const container = document.getElementById('giscus-container');
-                    if (!container) return;
-
-                    // 清空容器
-                    container.innerHTML = '';
-
-                    const script = document.createElement('script');
-                    script.src = 'https://giscus.app/client.js';
-                    script.setAttribute('data-repo', 'yyhhkya/giscus-blog');
-                    script.setAttribute('data-repo-id', 'R_kgDOPbFVyw');
-                    script.setAttribute('data-category', 'Announcements');
-                    script.setAttribute('data-category-id', 'DIC_kwDOPbFVy84Ct-aR');
-                    script.setAttribute('data-mapping', 'pathname');
-                    script.setAttribute('data-strict', '0');
-                    script.setAttribute('data-reactions-enabled', '1');
-                    script.setAttribute('data-emit-metadata', '0');
-                    script.setAttribute('data-input-position', 'top');
-                    script.setAttribute('data-theme', getCurrentTheme());
-                    script.setAttribute('data-lang', 'zh-CN');
-                    script.setAttribute('data-loading', 'lazy');
-                    script.setAttribute('crossorigin', 'anonymous');
-                    script.async = true;
-
-                    container.appendChild(script);
-                }
-
-                // 监听主题变化
-                function observeThemeChange() {
-                    const observer = new MutationObserver((mutations) => {
-                        mutations.forEach((mutation) => {
-                            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                                const giscusFrame = document.querySelector('iframe.giscus-frame');
-                                if (giscusFrame) {
-                                    // 通过 postMessage 更新 Giscus 主题
-                                    const theme = getCurrentTheme();
-                                    giscusFrame.contentWindow.postMessage({
-                                        giscus: {
-                                            setConfig: {
-                                                theme: theme
-                                            }
-                                        }
-                                    }, 'https://giscus.app');
-                                }
-                            }
-                        });
-                    });
-
-                    observer.observe(document.documentElement, {
-                        attributes: true,
-                        attributeFilter: ['class']
-                    });
-                }
-
-                // 初始化
-                document.addEventListener('DOMContentLoaded', () => {
-                    loadGiscus();
-                    observeThemeChange();
-                });
-
-                // 如果 DOM 已经加载完成
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', () => {
-                        loadGiscus();
-                        observeThemeChange();
-                    });
-                } else {
-                    loadGiscus();
-                    observeThemeChange();
-                }
-            </script>
+            <GiscusComments />
         </div>
     </div>
 

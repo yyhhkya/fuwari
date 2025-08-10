@@ -5,6 +5,7 @@ import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "../config";
 import { friends } from "../friends_data";
+import GiscusComments from "@components/GiscusComments.astro";
 
 // 获取友链说明内容
 const friendsPost = await getEntry("spec", "friends");
@@ -50,6 +51,12 @@ const { Content, headings } = await render(friendsPost);
                 </a>
             ))}
         </div>
+        <Markdown class="my-8">
+            <hr>
+        </Markdown>
+        <!-- 评论区 -->
+        <GiscusComments />
+
 
 </MainGridLayout>
 

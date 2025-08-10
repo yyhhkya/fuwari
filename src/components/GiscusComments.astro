@@ -1,0 +1,110 @@
+---
+// Giscus 评论组件
+const containerId = `giscus-container-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div id={containerId}></div>
+
+<script define:vars={{ containerId }}>
+    // 获取当前主题
+    function getCurrentTheme() {
+        const isDark = document.documentElement.classList.contains('dark');
+        return isDark ? 'dark' : 'light';
+    }
+
+    // 加载 Giscus
+    function loadGiscus() {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // 清空容器
+        container.innerHTML = '';
+
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.setAttribute('data-repo', 'yyhhkya/giscus-blog');
+        script.setAttribute('data-repo-id', 'R_kgDOPbFVyw');
+        script.setAttribute('data-category', 'Announcements');
+        script.setAttribute('data-category-id', 'DIC_kwDOPbFVy84Ct-aR');
+        script.setAttribute('data-mapping', 'pathname');
+        script.setAttribute('data-strict', '0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'top');
+        script.setAttribute('data-theme', getCurrentTheme());
+        script.setAttribute('data-lang', 'zh-CN');
+        script.setAttribute('data-loading', 'lazy');
+        script.setAttribute('crossorigin', 'anonymous');
+        script.async = true;
+
+        container.appendChild(script);
+    }
+
+    // 全局观察器变量
+    let themeObserver = null;
+
+    // 监听主题变化
+    function observeThemeChange() {
+        // 如果已有观察器，先断开连接
+        if (themeObserver) {
+            themeObserver.disconnect();
+        }
+
+        themeObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const giscusFrame = document.querySelector('iframe.giscus-frame');
+                    if (giscusFrame) {
+                        // 通过 postMessage 更新 Giscus 主题
+                        const theme = getCurrentTheme();
+                        giscusFrame.contentWindow.postMessage({
+                            giscus: {
+                                setConfig: {
+                                    theme: theme
+                                }
+                            }
+                        }, 'https://giscus.app');
+                    }
+                }
+            });
+        });
+
+        themeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    }
+
+    // 初始化函数
+    function initGiscus() {
+        loadGiscus();
+        observeThemeChange();
+    }
+
+    // 清理函数
+    function cleanupGiscus() {
+        if (themeObserver) {
+            themeObserver.disconnect();
+            themeObserver = null;
+        }
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = '';
+        }
+    }
+
+    // 监听 swup 页面导航事件
+    document.addEventListener('swup:contentReplaced', initGiscus);
+    
+    // 监听页面卸载事件
+    document.addEventListener('swup:willReplaceContent', cleanupGiscus);
+    
+    // 兼容传统的页面加载和 Astro 客户端导航
+    document.addEventListener('DOMContentLoaded', initGiscus);
+    document.addEventListener('astro:page-load', initGiscus);
+
+    // 如果 DOM 已经加载完成，立即初始化
+    if (document.readyState !== 'loading') {
+        initGiscus();
+    }
+</script>
