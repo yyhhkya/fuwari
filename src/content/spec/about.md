@@ -15,5 +15,5 @@ Github：[yyhhkya](https://github.com/yyhhkya)\
 以技术向博文为主，生活向博文为辅。
 
 始于：2019年7月1日\
-框架：`Astro`
+框架：`Astro`\
 主题：`Fuwari`
