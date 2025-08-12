@@ -20,7 +20,13 @@ const postsCollection = defineCollection({
 	}),
 });
 const specCollection = defineCollection({
-	schema: z.object({}),
+	schema: z.object({
+		title: z.string().optional(),
+		description: z.string().optional(),
+		icon: z.string().optional().default("material-symbols:article"),
+		showComments: z.boolean().optional().default(true),
+		pageLayout: z.enum(["default", "wide", "narrow"]).optional().default("default"),
+	}),
 });
 export const collections = {
 	posts: postsCollection,

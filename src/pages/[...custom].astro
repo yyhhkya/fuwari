@@ -1,0 +1,72 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+import { siteConfig } from "../config";
+import GiscusComments from "@components/GiscusComments.astro";
+
+export const getStaticPaths = (async () => {
+	const specEntries = await getCollection("spec");
+	
+	return specEntries.map((entry) => ({
+		params: { custom: entry.slug },
+		props: { entry },
+	}));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+// 获取页面配置，如果没有配置则使用默认值
+const pageTitle = entry.data.title || entry.slug.charAt(0).toUpperCase() + entry.slug.slice(1);
+const showComments = entry.data.showComments !== false;
+// 如果description不包含站点标题，则自动添加
+const originalDescription = entry.data.description || siteConfig.description;
+// 处理 originalDescription 可能为 undefined 的情况
+const pageDescription = originalDescription ? (originalDescription.includes(siteConfig.title) ? originalDescription : `${originalDescription} - ${siteConfig.title}`) : siteConfig.title;
+const pageIcon = entry.data.icon || "material-symbols:article";
+---
+
+<MainGridLayout title={pageTitle} description={pageDescription} headings={headings}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+        <div id="custom-container" class="card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full">
+            <!-- 页面标题区域 -->
+            <div class="relative onload-animation">
+                <div class="transition w-full block font-bold mb-3
+                    text-3xl md:text-[2.25rem]/[2.75rem]
+                    text-black/90 dark:text-white/90
+                    md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+                    before:absolute before:top-[0.75rem] before:left-[-1.125rem]
+                ">
+                    {pageTitle}
+                </div>
+            </div>
+
+            <!-- 分隔线 -->
+            <!-- <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5 onload-animation"></div> -->
+
+            <!-- 内容区域 -->
+            <Markdown class="mb-6 markdown-content onload-animation">
+                <Content />
+                <hr>
+            </Markdown>
+
+            <!-- 评论区域 -->
+            {showComments && <GiscusComments />}
+        </div>
+    </div>
+</MainGridLayout>
+
+<style>
+    /* 自定义页面特定样式 */
+    .meta-icon {
+        @apply w-6 h-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-3;
+    }
+    
+    /* 评论区域样式 */
+    .comments-section {
+        @apply mt-8 pt-6 border-t border-gray-200 dark:border-gray-700;
+    }
+</style>

@@ -1,3 +1,8 @@
+---
+title: "常用脚本"
+description: "收集整理的一些实用脚本和工具"
+---
+
 ## [换源](https://linuxmirrors.cn/)
 
 ```bash
