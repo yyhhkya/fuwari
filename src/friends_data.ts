@@ -70,4 +70,16 @@ export const friends: Friend[] = [
 		avatar: "https://www.fis.ink/img/logo.png",
 		description: "非淡泊无以明志，非宁静无以致远",
 	},
+	{
+		name: "鈴奈咲桜のBlog",
+		url: "https://blog.sakura.ink",
+		avatar: "https://avatars.githubusercontent.com/u/91101909?v=4",
+		description: "愛することを忘れないで",
+	},
+	{
+		name: "星辰の笔记",
+		url: "https://blog.strarry.top",
+		avatar: "https://blog.strarry.top/avatar.jpg",
+		description: "Code | Think | Share | Repeat",
+	},
 ];
