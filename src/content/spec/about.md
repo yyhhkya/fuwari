@@ -9,9 +9,11 @@ Github：[yyhhkya](https://github.com/yyhhkya)\
 ## 关于本站
 > 2019年7月1日问世，使用`Typecho`\
 > 2022年11月27日迁移至`Hexo`\
-> 2024年4月14日迁移至`Halo`
+> 2024年4月14日迁移至`Halo`\
+> 2025年8月10日迁移至`Astro`
 
 以技术向博文为主，生活向博文为辅。
 
 始于：2019年7月1日\
-博客程序：`Fuwari`
+框架：`Astro`
+主题：`Fuwari`
