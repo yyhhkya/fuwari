@@ -1,11 +1,11 @@
 ---
 import { getEntry, render } from "astro:content";
+import GiscusComments from "@components/GiscusComments.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "../config";
 import { friends } from "../friends_data";
-import GiscusComments from "@components/GiscusComments.astro";
 
 // 获取友链说明内容
 const friendsPost = await getEntry("spec", "friends");

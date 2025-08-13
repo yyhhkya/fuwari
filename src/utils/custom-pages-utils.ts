@@ -1,4 +1,4 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 export type CustomPage = CollectionEntry<"spec">;
 
@@ -13,9 +13,11 @@ export async function getCustomPages(): Promise<CustomPage[]> {
 /**
  * 根据slug获取自定义页面
  */
-export async function getCustomPageBySlug(slug: string): Promise<CustomPage | undefined> {
+export async function getCustomPageBySlug(
+	slug: string,
+): Promise<CustomPage | undefined> {
 	const pages = await getCustomPages();
-	return pages.find(page => page.slug === slug);
+	return pages.find((page) => page.slug === slug);
 }
 
 /**
@@ -30,17 +32,17 @@ export function getCustomPageUrl(slug: string): string {
  */
 export function isCustomPagePath(path: string): boolean {
 	// 移除开头和结尾的斜杠
-	const cleanPath = path.replace(/^\/|\/$/g, '');
-	
+	const cleanPath = path.replace(/^\/|\/$/g, "");
+
 	// 检查是否为单级路径（不包含子路径）
-	return cleanPath.length > 0 && !cleanPath.includes('/');
+	return cleanPath.length > 0 && !cleanPath.includes("/");
 }
 
 /**
  * 从路径提取页面slug
  */
 export function extractSlugFromPath(path: string): string {
-	return path.replace(/^\/|\/$/g, '');
+	return path.replace(/^\/|\/$/g, "");
 }
 
 /**
@@ -48,9 +50,10 @@ export function extractSlugFromPath(path: string): string {
  */
 export async function getCustomPagesNavigation() {
 	const pages = await getCustomPages();
-	
-	return pages.map(page => ({
-		name: page.data.title || page.slug.charAt(0).toUpperCase() + page.slug.slice(1),
+
+	return pages.map((page) => ({
+		name:
+			page.data.title || page.slug.charAt(0).toUpperCase() + page.slug.slice(1),
 		url: getCustomPageUrl(page.slug),
 		external: false,
 		icon: page.data.icon,

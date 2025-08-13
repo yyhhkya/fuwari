@@ -1,15 +1,15 @@
 ---
-import type { GetStaticPaths } from "astro";
 import { getCollection, getEntry, render } from "astro:content";
+import GiscusComments from "@components/GiscusComments.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
+import type { GetStaticPaths } from "astro";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "../config";
-import GiscusComments from "@components/GiscusComments.astro";
 
 export const getStaticPaths = (async () => {
 	const specEntries = await getCollection("spec");
-	
+
 	return specEntries.map((entry) => ({
 		params: { custom: entry.slug },
 		props: { entry },
@@ -20,12 +20,17 @@ const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 
 // 获取页面配置，如果没有配置则使用默认值
-const pageTitle = entry.data.title || entry.slug.charAt(0).toUpperCase() + entry.slug.slice(1);
+const pageTitle =
+	entry.data.title || entry.slug.charAt(0).toUpperCase() + entry.slug.slice(1);
 const showComments = entry.data.showComments !== false;
 // 如果description不包含站点标题，则自动添加
 const originalDescription = entry.data.description || siteConfig.description;
 // 处理 originalDescription 可能为 undefined 的情况
-const pageDescription = originalDescription ? (originalDescription.includes(siteConfig.title) ? originalDescription : `${originalDescription} - ${siteConfig.title}`) : siteConfig.title;
+const pageDescription = originalDescription
+	? originalDescription.includes(siteConfig.title)
+		? originalDescription
+		: `${originalDescription} - ${siteConfig.title}`
+	: siteConfig.title;
 const pageIcon = entry.data.icon || "material-symbols:article";
 ---
 

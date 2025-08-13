@@ -1,5 +1,6 @@
 ---
 import path from "node:path";
+import GiscusComments from "@components/GiscusComments.astro";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "@i18n/i18nKey";
@@ -13,7 +14,6 @@ import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
-import GiscusComments from "@components/GiscusComments.astro";
 
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();

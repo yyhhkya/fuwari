@@ -25,7 +25,10 @@ const specCollection = defineCollection({
 		description: z.string().optional(),
 		icon: z.string().optional().default("material-symbols:article"),
 		showComments: z.boolean().optional().default(true),
-		pageLayout: z.enum(["default", "wide", "narrow"]).optional().default("default"),
+		pageLayout: z
+			.enum(["default", "wide", "narrow"])
+			.optional()
+			.default("default"),
 	}),
 });
 export const collections = {

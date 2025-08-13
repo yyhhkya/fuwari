@@ -1,13 +1,12 @@
+import { getImage } from "astro:assets";
 import rss from "@astrojs/rss";
 import { getSortedPosts } from "@utils/content-utils";
 import { url } from "@utils/url-utils";
-import type { APIContext } from "astro";
+import type { APIContext, ImageMetadata } from "astro";
 import MarkdownIt from "markdown-it";
+import { parse as htmlParser } from "node-html-parser";
 import sanitizeHtml from "sanitize-html";
 import { siteConfig } from "@/config";
-import { parse as htmlParser } from "node-html-parser";
-import { getImage } from "astro:assets";
-import type { ImageMetadata } from "astro";
 
 const parser = new MarkdownIt();
 
@@ -36,7 +35,7 @@ export async function GET(context: APIContext) {
 		const content =
 			typeof post.body === "string" ? post.body : String(post.body || "");
 		const cleanedContent = stripInvalidXmlChars(content);
-		
+
 		// convert markdown to html string
 		const body = parser.render(cleanedContent);
 		// convert html string to DOM-like structure

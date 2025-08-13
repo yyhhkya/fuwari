@@ -19,8 +19,11 @@ const className = Astro.props.class;
 const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
 const isScriptsRoute = Astro.url.pathname.startsWith(url("/scripts/"));
 // 检查是否为自定义页面路由（除了首页、归档页等特殊页面）
-const isCustomPageRoute = !Astro.url.pathname.match(/^\/(archive|rss\.xml|robots\.txt|page\/\d+)?$/);
-const shouldShowTOC = isPostsRoute || isScriptsRoute || (isCustomPageRoute && headings.length > 0);
+const isCustomPageRoute = !Astro.url.pathname.match(
+	/^\/(archive|rss\.xml|robots\.txt|page\/\d+)?$/,
+);
+const shouldShowTOC =
+	isPostsRoute || isScriptsRoute || (isCustomPageRoute && headings.length > 0);
 
 const removeTailingHash = (text: string) => {
 	let lastIndexOfHash = text.lastIndexOf("#");
