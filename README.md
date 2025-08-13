@@ -59,6 +59,12 @@ GITHUB_TOKEN="your-github-token"     # GitHub Token
 pnpm new-post <filename>
 ```
 
+### 创建自定义页面
+
+```bash
+pnpm new-page <filename>
+```
+
 ### 部署流程
 
 1. 本地编写文章 → 2. `git push` → 3. GitHub Actions 自动构建 → 4. 服务器脚本自动部署
@@ -70,6 +76,7 @@ pnpm new-post <filename>
 | `pnpm dev`                 | 启动开发服务器                         |
 | `pnpm build`               | 构建生产版本                           |
 | `pnpm new-post <filename>` | 创建新文章                             |
+| `pnpm new-page <filename>` | 创建自定义页面                         |
 
 ## 📄 许可证
 
