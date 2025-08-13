@@ -82,4 +82,10 @@ export const friends: Friend[] = [
 		avatar: "https://blog.strarry.top/avatar.jpg",
 		description: "Code | Think | Share | Repeat",
 	},
+	{
+		name: "老卢",
+		url: "https://blog.el9.cn",
+		avatar: "https://blog.el9.cn/upload/txa.webp",
+		description: "利她，有价值，不打扰",
+	},
 ];
