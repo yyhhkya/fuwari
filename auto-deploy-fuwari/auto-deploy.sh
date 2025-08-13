@@ -12,15 +12,126 @@ GITHUB_TOKEN=""                 # GitHub Token (至少需要 public_repo 权限)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STATE_FILE="$SCRIPT_DIR/last_build_id"  # 状态文件
 
-# 获取最新成功的构建ID
-get_latest_build_id() {
+# 检查仓库的默认分支
+get_default_branch() {
     local auth=""
     if [ -n "$GITHUB_TOKEN" ]; then
         auth="-H \"Authorization: token $GITHUB_TOKEN\""
     fi
     
-    eval "curl -s $auth \"https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/actions/runs?status=success&branch=main&per_page=1\"" | \
-    jq -r '.workflow_runs[0].id'
+    echo "🔍 检查仓库默认分支..." >&2
+    local response
+    if [ -n "$GITHUB_TOKEN" ]; then
+        response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO")
+    else
+        response=$(curl -s "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO")
+    fi
+    
+    local default_branch=$(echo "$response" | jq -r '.default_branch // "main"' 2>/dev/null)
+    echo "📌 默认分支: $default_branch" >&2
+    echo "$default_branch"
+}
+
+# 获取最新成功的构建ID
+get_latest_build_id() {
+    local branch="${1:-main}"
+    local auth=""
+    if [ -n "$GITHUB_TOKEN" ]; then
+        auth="-H \"Authorization: token $GITHUB_TOKEN\""
+    fi
+    
+    echo "🔍 正在查询 GitHub API..." >&2
+    echo "📍 仓库: $GITHUB_OWNER/$GITHUB_REPO" >&2
+    echo "🌿 分支: $branch" >&2
+    
+    # 构建API URL - 获取所有构建，然后本地过滤（GitHub API的branch参数有问题）
+    local api_url="https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/actions/runs?per_page=20"
+    echo "🌐 API URL: $api_url" >&2
+    
+    # 执行API请求并保存响应
+    local response
+    if [ -n "$GITHUB_TOKEN" ]; then
+        echo "🔑 使用 GitHub Token 进行认证" >&2
+        response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$api_url")
+    else
+        echo "⚠️  未使用 GitHub Token（可能受到API限制）" >&2
+        response=$(curl -s "$api_url")
+    fi
+    
+    # 检查curl是否成功
+    local curl_exit_code=$?
+    if [ $curl_exit_code -ne 0 ]; then
+        echo "❌ curl 请求失败，退出码: $curl_exit_code" >&2
+        return 1
+    fi
+    
+    # 检查是否有错误信息
+    local error_message=$(echo "$response" | jq -r '.message // empty' 2>/dev/null)
+    if [ -n "$error_message" ]; then
+        echo "❌ GitHub API 错误: $error_message" >&2
+        return 1
+    fi
+    
+    # 显示总构建数（用于调试）
+    local total_count=$(echo "$response" | jq -r '.total_count // 0' 2>/dev/null)
+    echo "📊 总构建数: $total_count" >&2
+    
+    # 调试：显示前几个构建的详细信息
+    echo "🔍 前5个构建的详细信息：" >&2
+    echo "$response" | jq -r --arg branch "$branch" '.workflow_runs[0:5][] | "  - ID: \(.id), Branch: \(.head_branch), Status: \(.status), Conclusion: \(.conclusion)"' >&2
+    
+    # 调试：检查有多少个指定分支的构建
+    local branch_count=$(echo "$response" | jq -r --arg branch "$branch" '[.workflow_runs[] | select(.head_branch == $branch)] | length')
+    echo "🌿 分支 '$branch' 的构建数: $branch_count" >&2
+    
+    # 调试：检查有多少个成功的构建（任意分支）
+    local success_count=$(echo "$response" | jq -r '[.workflow_runs[] | select(.conclusion == "success")] | length')
+    echo "✅ 成功构建数（任意分支）: $success_count" >&2
+    
+    # 调试：检查有多少个指定分支的成功构建
+    local branch_success_count=$(echo "$response" | jq -r --arg branch "$branch" '[.workflow_runs[] | select(.head_branch == $branch and .conclusion == "success")] | length')
+    echo "🎯 分支 '$branch' 的成功构建数: $branch_success_count" >&2
+    
+    # 过滤指定分支的成功构建并获取最新的ID
+    echo "🔍 执行jq过滤命令..." >&2
+    
+    # 方法1：尝试原始的jq命令
+    local build_id=$(echo "$response" | jq -r --arg branch "$branch" '.workflow_runs[] | select(.head_branch == $branch and .conclusion == "success") | .id' | head -1)
+    echo "🔍 方法1结果: '$build_id'" >&2
+    
+    # 如果方法1失败，尝试方法2：分步过滤
+    if [ -z "$build_id" ] || [ "$build_id" = "null" ]; then
+        echo "🔍 方法1失败，尝试方法2..." >&2
+        # 先获取所有成功的构建ID
+        local success_ids=$(echo "$response" | jq -r '.workflow_runs[] | select(.conclusion == "success") | .id')
+        echo "🔍 所有成功构建ID: $success_ids" >&2
+        
+        # 然后检查每个ID对应的分支
+        for id in $success_ids; do
+            local run_branch=$(echo "$response" | jq -r --arg id "$id" '.workflow_runs[] | select(.id == ($id | tonumber)) | .head_branch')
+            echo "🔍 构建 $id 的分支: $run_branch" >&2
+            if [ "$run_branch" = "$branch" ]; then
+                build_id="$id"
+                echo "🔍 方法2找到匹配: $build_id" >&2
+                break
+            fi
+        done
+    fi
+    
+    echo "🔍 最终结果: '$build_id'" >&2
+    
+    if [ -z "$build_id" ] || [ "$build_id" = "null" ]; then
+        echo "❌ 未找到成功的构建记录" >&2
+        echo "💡 可能的原因：" >&2
+        echo "   1. 仓库中没有 GitHub Actions 工作流" >&2
+        echo "   2. 没有成功完成的构建" >&2
+        echo "   3. 主分支不是 'main'（可能是 'master'）" >&2
+        echo "   4. GitHub Token 权限不足" >&2
+        return 1
+    fi
+    
+    echo "✅ 找到最新构建ID: $build_id" >&2
+    echo "$build_id"
 }
 
 # 下载并解压产物
@@ -131,8 +242,15 @@ main() {
     
     echo "🔍 检查新构建..."
     
+    # 获取默认分支
+    default_branch=$(get_default_branch)
+    if [ -z "$default_branch" ]; then
+        echo "❌ 无法确定仓库分支"
+        exit 1
+    fi
+    
     # 获取最新构建ID
-    latest_build_id=$(get_latest_build_id)
+    latest_build_id=$(get_latest_build_id "$default_branch")
     
     if [ "$latest_build_id" = "null" ] || [ -z "$latest_build_id" ]; then
         echo "❌ 无法获取构建信息"
