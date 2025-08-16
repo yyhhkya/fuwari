@@ -22,22 +22,10 @@ export const friends: Friend[] = [
 		description: "迷失的人迷失了，相逢的人会再相逢。",
 	},
 	{
-		name: "AcoFork Blog",
-		url: "https://2x.nz/",
-		avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=5",
-		description: "Protect What You Love!",
-	},
-	{
 		name: "Eunie的博客",
 		url: "https://www.eunie.online/",
 		avatar: "https://www.eunie.online/upload/tMZ6yUjk7rxhCqQ.png",
 		description: "一个绝妙的余兴节目❥",
-	},
-	{
-		name: "宝硕",
-		url: "https://baoshuo.ren",
-		avatar: "https://cdn.jsdelivr.net/npm/bsi/avatar/96x96.png",
-		description: "即使是沉重的过去，也要接受它再继续向前迈进。",
 	},
 	{
 		name: "小帕鲁流浪记",
