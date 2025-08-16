@@ -56,6 +56,11 @@ export const navBarConfig: NavBarConfig = {
 			url: "/scripts/",
 			external: false,
 		},
+		{
+			name: "用药感受",
+			url: "/sleep/",
+			external: false,
+		},
 		// {
 		// 	name: "GitHub",
 		// 	url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
