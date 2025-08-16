@@ -46,7 +46,7 @@ Fuwari 是一个基于 Astro 构建的现代化静态博客主题，具有以下
 ### 安装和运行
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/yyhhkya/fuwari.git
 cd fuwari
 pnpm install
 pnpm dev
