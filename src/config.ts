@@ -9,7 +9,7 @@ import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
 	title: "Wer Blog",
-	subtitle: "❤",
+	subtitle: "Ciallo～(∠・ω< )⌒★",
 	description:
 		"记录技术成长路上的思考与实践，分享编程开发、技术探索和问题解决的心得体会。在这里，你可以找到实用的技术教程、开发经验总结、以及各种有趣的技术发现。让我们一起在代码的世界里不断学习，持续进步。",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh-CN', 'ja', etc.
