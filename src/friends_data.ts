@@ -70,4 +70,16 @@ export const friends: Friend[] = [
 		avatar: "https://blog.strarry.top/avatar.jpg",
 		description: "Code | Think | Share | Repeat",
 	},
+	{
+		name: "Dignite’s Blog!",
+		url: "https://www.amzcd.top",
+		avatar: "https://www.amzcd.top/assets/img/avatar.png",
+		description: "When Nothing Goes Right, Go Left.",
+	},
+	{
+		name: "轻雅阁",
+		url: "https://www.puresky.top",
+		avatar: "https://www.puresky.top/upload/logo.png",
+		description: "新时代教师的日常",
+	},
 ];
