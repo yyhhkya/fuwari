@@ -4,7 +4,7 @@ published: 2025-08-10
 description: ''
 image: ''
 tags: [Astro, Fuwari]
-category: '心得体会'
+category: '闲言碎语'
 draft: false
 pinned: true
 lang: ''

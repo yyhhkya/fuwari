@@ -4,7 +4,7 @@ published: 2024-01-20
 description: ''
 image: './windows.webp'
 tags: [Windows, 系统镜像]
-category: '百宝箱'
+category: '心得体会'
 draft: false 
 lang: ''
 ---

@@ -4,7 +4,7 @@ published: 2025-08-15
 description: '深入浅出地探讨数学期望在直播盲盒中的应用及其现实意义'
 image: ''
 tags: ['概率论', '数学期望']
-category: '心得体会'
+category: '闲言碎语'
 draft: false
 pinned: false
 lang: ''

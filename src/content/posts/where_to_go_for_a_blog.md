@@ -4,7 +4,7 @@ published: 2025-08-13
 description: '回想AI技术的飞速发展，我人生头一次如此真切地感受到了时代的巨轮滚滚向前'
 image: ''
 tags: [AI, 个人博客, 生活]
-category: '心得体会'
+category: '闲言碎语'
 draft: false 
 lang: ''
 ---

@@ -4,7 +4,7 @@ published: 2025-08-15
 description: '深度解析B站粉丝勋章亲密度升级公告，揭示表面优化背后的商业逻辑与用户体验倒退'
 image: ''
 tags: ['B站', '直播', '粉丝勋章']
-category: '心得体会'
+category: '闲言碎语'
 draft: false
 pinned: false
 lang: ''

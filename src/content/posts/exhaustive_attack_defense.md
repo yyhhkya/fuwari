@@ -4,7 +4,7 @@ published: 2024-08-04
 description: ''
 image: ''
 tags: [Ubuntu, Linux]
-category: '百宝箱'
+category: '心得体会'
 draft: false 
 lang: ''
 ---

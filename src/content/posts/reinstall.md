@@ -4,7 +4,7 @@ published: 2025-07-18
 description: ''
 image: ''
 tags: [Linux]
-category: '百宝箱'
+category: '心得体会'
 draft: false 
 lang: ''
 ---

@@ -4,7 +4,7 @@ published: 2024-04-15
 description: ''
 image: './openwrt.webp'
 tags: [OpenWrt]
-category: '百宝箱'
+category: '心得体会'
 draft: false 
 lang: ''
 ---
