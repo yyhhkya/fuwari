@@ -52,20 +52,22 @@ export const navBarConfig: NavBarConfig = {
 		},
 		LinkPreset.About,
 		{
-			name: "常用脚本",
-			url: "/scripts/",
+			name: "其他",
+			url: "#",
 			external: false,
+			children: [
+				{
+					name: "常用脚本",
+					url: "/scripts/",
+					external: false,
+				},
+				{
+					name: "用药感受",
+					url: "/sleep/",
+					external: false,
+				},
+			],
 		},
-		{
-			name: "用药感受",
-			url: "/sleep/",
-			external: false,
-		},
-		// {
-		// 	name: "GitHub",
-		// 	url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
-		// 	external: true, // Show an external link icon and will open in a new tab
-		// },
 	],
 };
 

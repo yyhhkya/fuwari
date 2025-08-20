@@ -28,6 +28,7 @@ Fuwari 是一个基于 Astro 构建的现代化静态博客主题，具有以下
 - ✅ **全局头部配置** - 通过 `head_data.ts` 统一管理统计代码和SEO标签
 - ✅ **Giscus评论组件** - 通过 `GiscusComments.astro` 提供现代化评论系统
 - ✅ **文章置顶功能** - 支持文章置顶显示，重要内容优先展示
+- ✅ **导航菜单增强** - 支持二级菜单配置，桌面端悬停展开，移动端点击切换
 
 ## 🎯 项目特色
 
@@ -152,6 +153,48 @@ pinned: true
 ```
 
 置顶文章将在首页和归档页面优先显示，并带有置顶标识。
+
+### 二级菜单配置 (`src/config.ts`)
+
+在导航栏配置中支持二级菜单，可以创建下拉菜单结构：
+
+```typescript
+export const navBarConfig: NavBarConfig = {
+  links: [
+    LinkPreset.Home,
+    LinkPreset.Archive,
+    LinkPreset.About,
+    {
+      name: '其他',
+      url: '#',  // 父级菜单使用 # 作为占位符
+      children: [
+        {
+          name: '常用脚本',
+          url: '/scripts/',
+          external: false
+        },
+        {
+          name: '用药感受',
+          url: '/sleep/',
+          external: false
+        },
+      ]
+    }
+  ]
+}
+```
+
+**配置说明：**
+- `name` - 菜单显示名称
+- `url` - 链接地址（父级菜单建议使用 `#`）
+- `children` - 子菜单数组
+- `external` - 是否为外部链接
+
+**功能特性：**
+- 桌面端：鼠标悬停展开二级菜单
+- 移动端：点击切换二级菜单显示/隐藏
+- 支持无限层级嵌套
+- 自动适应内容宽度
 
 ## 🛠️ 常用命令
 
