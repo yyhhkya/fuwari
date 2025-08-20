@@ -82,4 +82,10 @@ export const friends: Friend[] = [
 		avatar: "https://www.puresky.top/upload/logo.png",
 		description: "新时代教师的日常",
 	},
+	{
+		name: "pr-test",
+		url: "https://www.pr-test.123",
+		avatar: "https://blog.isyyo.com/favicon/logo.png",
+		description: "test",
+	},
 ];
