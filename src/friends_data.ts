@@ -88,4 +88,10 @@ export const friends: Friend[] = [
 		avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=5",
 		description: "Protect What You Love!",
 	},
+	{
+		name: "Landigo's Garden",
+		url: "https://blog.minecraftglz.top",
+		avatar: "https://blog.minecraftglz.top/upload/site-icon-150x150.png",
+		description: "Never be afraid of your inner power",
+	},
 ];
