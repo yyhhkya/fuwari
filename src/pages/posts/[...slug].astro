@@ -84,6 +84,15 @@ const jsonLd = {
                 </div>
             </div>
 
+            <!-- description/excerpt -->
+            {(entry.data.description || remarkPluginFrontmatter.excerpt) && (
+                <div class="onload-animation mb-4">
+                    <div class="text-black/75 dark:text-white/75 text-sm leading-relaxed">
+                        {entry.data.description || remarkPluginFrontmatter.excerpt}
+                    </div>
+                </div>
+            )}
+            
             <!-- metadata -->
             <div class="onload-animation">
                 <PostMetadata
