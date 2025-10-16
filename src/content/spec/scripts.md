@@ -55,8 +55,8 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o go
 docker run -d -p 7070:80 --name speedtest ilemonrain/html5-speedtest:alpine
 ```
 
-## [3x-ui](https://github.com/MHSanaei/3x-ui)
+## [3x-ui](https://github.com/xeefei/X-Panel)
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/xeefei/x-panel/master/install.sh)
 ```
