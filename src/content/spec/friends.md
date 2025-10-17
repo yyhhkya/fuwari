@@ -13,7 +13,7 @@
 ### 交换流程
 
 1. 先添加本站友链（名称/链接 见文末）
-2. 发送邮件提交申请（含友链页截图）
+2. [提交PR](https://github.com/yyhhkya/fuwari/blob/main/src/friends_data.ts)
 3. 7个工作日内审核回复（基本上是秒审核😘）
 
 ### 拒绝情形
@@ -32,5 +32,3 @@
 - **头像地址：** https://blog.isyyo.com/favicon/logo.png
 - **简介：** The only way to do great is to love what you do
 - **联系邮箱：** i@hiwer.cn
-
----
