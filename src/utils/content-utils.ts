@@ -40,8 +40,22 @@ export type PostForList = {
 	slug: string;
 	data: CollectionEntry<"posts">["data"];
 };
+async function getRawSortedPostsForArchive() {
+	const allBlogPosts = await getCollection("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	const sorted = allBlogPosts.sort((a, b) => {
+		// 仅按发布日期排序，不考虑置顶状态
+		const dateA = new Date(a.data.published);
+		const dateB = new Date(b.data.published);
+		return dateA > dateB ? -1 : 1;
+	});
+	return sorted;
+}
+
 export async function getSortedPostsList(): Promise<PostForList[]> {
-	const sortedFullPosts = await getRawSortedPosts();
+	const sortedFullPosts = await getRawSortedPostsForArchive();
 
 	// delete post.body
 	const sortedPostsList = sortedFullPosts.map((post) => ({
