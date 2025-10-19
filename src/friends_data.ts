@@ -98,6 +98,6 @@ export const friends: Friend[] = [
 		name: "test",
 		url: "https://test.com",
 		avatar: "https://test.com",
-		description: "test description",
+		description: "test description1",
 	},
 ];
