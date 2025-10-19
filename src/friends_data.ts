@@ -94,4 +94,10 @@ export const friends: Friend[] = [
 		avatar: "https://blog.minecraftglz.top/upload/site-icon-150x150.png",
 		description: "Never be afraid of your inner power",
 	},
+	{
+		name: "test",
+		url: "https://test.com",
+		avatar: "https://test.com",
+		description: "test description",
+	},
 ];
