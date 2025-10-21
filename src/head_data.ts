@@ -67,12 +67,22 @@ export const headData: HeadData = {
 export function getAllHeadData(): string {
 	const { analytics, customMeta, thirdPartyScripts, customHead } = headData;
 
-	return [analytics, customMeta, thirdPartyScripts, customHead]
-		.filter(Boolean)
-		.join("\n");
+	// 在开发环境下不加载统计代码
+	const headDataArray = [
+		import.meta.env.MODE === "development" ? "" : analytics,
+		customMeta,
+		thirdPartyScripts,
+		customHead,
+	];
+
+	return headDataArray.filter(Boolean).join("\n");
 }
 
 // 获取特定类型的 head 代码
 export function getHeadDataByType(type: keyof HeadData): string {
+	// 在开发环境下不返回统计代码
+	if (type === "analytics" && import.meta.env.MODE === "development") {
+		return "";
+	}
 	return headData[type] || "";
 }
