@@ -144,12 +144,13 @@ download_artifact() {
     
     echo "📦 下载构建 $build_id 的产物..."
     
-    # 获取artifact ID
+    # 获取artifact ID（优先使用 Node.js 22 的构建产物）
     local artifact_id=$(eval "curl -s $auth \"https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/actions/runs/$build_id/artifacts\"" | \
-    jq -r '.artifacts[] | select(.name=="astro-site") | .id')
+    jq -r '.artifacts[] | select(.name=="astro-site-node-22" or .name=="astro-site-node-23") | .id' | head -n 1)
     
     if [ "$artifact_id" = "null" ] || [ -z "$artifact_id" ]; then
-        echo "❌ 未找到构建产物"
+        echo "❌ 未找到构建产物 (astro-site-node-22 或 astro-site-node-23)"
+        echo "💡 请确保 GitHub Actions 构建成功并生成了这些产物"
         return 1
     fi
     
