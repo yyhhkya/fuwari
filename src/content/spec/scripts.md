@@ -90,6 +90,6 @@ irm https://get.activated.win | iex
 # 如果上述操作被阻止（被 ISP/DNS），请尝试以下操作（需要更新 Windows 10 或 11）：
 iex (curl.exe -s --doh-url https://1.1.1.1/dns-query https://get.activated.win | Out-String)
 
-# 对于Windows 7及更高版本：
+# Windows 7及更高版本：
 iex ((New-Object Net.WebClient).DownloadString('https://get.activated.win'))
 ```
