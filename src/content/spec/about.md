@@ -1,10 +1,10 @@
-## 关于我
+## 我
 从小就喜欢一切与电脑、网络、摄影有关的东西。
 
 Github：[yyhhkya](https://github.com/yyhhkya)\
 邮箱：[i@hiwer.cn](mailto:i@hiwer.cn)
 
-## 关于本站
+## 本站
 > 2019年7月1日问世，使用`Typecho`\
 > 2022年11月27日迁移至`Hexo`\
 > 2024年4月14日迁移至`Halo`\
