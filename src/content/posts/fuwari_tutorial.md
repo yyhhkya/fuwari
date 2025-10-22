@@ -3,8 +3,8 @@ title: Fuwari搭建指北
 published: 2025-10-22T12:59:00
 description: '想要拥有一个加载速度快、设计优雅的静态博客？Fuwari或许正是你需要的解决方案。'
 image: ''
-tags: ['教程', '博客搭建', 'Astro', 'Fuwari']
-category: '技术'
+tags: ['Astro', 'Fuwari']
+category: '心得体会'
 draft: false
 pinned: false
 lang: ''
