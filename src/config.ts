@@ -57,7 +57,7 @@ export const navBarConfig: NavBarConfig = {
 			external: false,
 			children: [
 				{
-					name: "常用脚本",
+					name: "常用脚本&资源",
 					url: "/scripts/",
 					external: false,
 				},
