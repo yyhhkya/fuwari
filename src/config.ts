@@ -66,12 +66,12 @@ export const navBarConfig: NavBarConfig = {
 					url: "/sleep/",
 					external: false,
 				},
+				{
+					name: "状态",
+					url: "https://stats.uptimerobot.com/YVPkaXtQOH",
+					external: true,
+				},
 			],
-		},
-		{
-			name: "状态",
-			url: "https://stats.uptimerobot.com/YVPkaXtQOH",
-			external: true,
 		},
 	],
 };
