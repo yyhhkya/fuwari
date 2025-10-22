@@ -68,6 +68,11 @@ export const navBarConfig: NavBarConfig = {
 				},
 			],
 		},
+		{
+			name: "状态",
+			url: "https://stats.uptimerobot.com/YVPkaXtQOH",
+			external: true,
+		},
 	],
 };
 
