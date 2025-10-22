@@ -6,7 +6,7 @@ image: ''
 tags: [Astro, Fuwari]
 category: '闲言碎语'
 draft: false
-pinned: true
+pinned: false
 lang: ''
 ---
 
