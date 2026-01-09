@@ -28,15 +28,9 @@ export const friends: Friend[] = [
 		description: "一个绝妙的余兴节目❥",
 	},
 	{
-		name: "小帕鲁流浪记",
-		url: "https://www.master-jsx.top",
-		avatar: "https://lsky.master-jsx.top/i/2025/05/22/682f163ce9b30.png",
-		description: "知识的汲取，有时如逆水行舟，却能锻造出坚韧不拔的你。",
-	},
-	{
 		name: "世上云川",
 		url: "https://blog.ssyc.me",
-		avatar: "https://blog.ssyc.me/favicon.ico",
+		avatar: "https://blog.ssyc.me/SSYC-icon.svg",
 		description: "若有韶月熹微，愿作流萤徂岁。",
 	},
 	{
@@ -87,11 +81,5 @@ export const friends: Friend[] = [
 		url: "https://2x.nz/",
 		avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=5",
 		description: "Protect What You Love!",
-	},
-	{
-		name: "Landigo's Garden",
-		url: "https://blog.minecraftglz.top",
-		avatar: "https://blog.minecraftglz.top/upload/site-icon-150x150.png",
-		description: "Never be afraid of your inner power",
 	},
 ];
