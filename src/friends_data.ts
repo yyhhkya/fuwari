@@ -82,4 +82,10 @@ export const friends: Friend[] = [
 		avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=5",
 		description: "Protect What You Love!",
 	},
+	{
+		name: "The Blog",
+		url: "https://blog.5252025.xyz/",
+		avatar: "https://blog.5252025.xyz/img/icon-256.png",
+		description: "What is a blog?",
+	},
 ];
