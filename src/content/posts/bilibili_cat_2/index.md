@@ -19,6 +19,11 @@ lang: ''
 ## 用魔法对抗魔法
 
 ``` js
+/** Bilibili 开放平台 App Key */
+const BILI_APPKEY = '4409e2ce8ffd12b8'
+/** Bilibili 开放平台 App Secret */
+const BILI_APPSECRET = '59b43e04ad6965f34319062b478f83dd'
+
 // 1. 移动端进房 (HTTP)
 // 必须携带 AppKey 签名，且参数非常多，包含设备指纹(buvid, uuid)
 async function mobileEntry(ctx: Context, accessKey: string, roomId: string) {
