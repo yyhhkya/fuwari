@@ -30,7 +30,7 @@ async function mobileEntry(ctx: Context, accessKey: string, roomId: string) {
     // 基础参数
     const params = {
         access_key: accessKey,
-        appkey: 'YOUR_APP_KEY',
+        appkey: BILI_APPKEY,
         room_id: roomId,
         platform: 'android',
         buvid: 'XY789...', // 必须是合法的设备 ID
@@ -38,7 +38,7 @@ async function mobileEntry(ctx: Context, accessKey: string, roomId: string) {
         ts: Math.floor(Date.now() / 1000)
     }
     // 必须签名!
-    params['sign'] = sign(params, 'YOUR_APP_SECRET') 
+    params['sign'] = sign(params, BILI_APPSECRET) 
 
     await ctx.http.post('https://live-trace.bilibili.com/xlive/data-interface/v1/heartbeat/mobileEntry', 
         new URLSearchParams(params) // 必须用 Form Data 格式
@@ -49,11 +49,11 @@ async function mobileEntry(ctx: Context, accessKey: string, roomId: string) {
 async function getMobileDanmuInfo(ctx: Context, roomId: string, accessKey: string) {
     const params = {
         access_key: accessKey,
-        appkey: 'YOUR_APP_KEY',
+        appkey: BILI_APPKEY,
         room_id: roomId,
         ts: Math.floor(Date.now() / 1000)
     }
-    params['sign'] = sign(params, 'YOUR_APP_SECRET')
+    params['sign'] = sign(params, BILI_APPSECRET)
 
     return await ctx.http.get('https://api.live.bilibili.com/xlive/app-room/v1/index/getDanmuInfo', {
         params
