@@ -40,11 +40,11 @@ export const friends: Friend[] = [
 		description: "记录生活点滴",
 	},
 	{
-		name: "yunsen2025 的小窝",
-		url: "https://www.yunsen2025.top",
+		name: "Yunsen的小窝",
+		url: "https://blog.imysen.com/",
 		avatar:
 			"https://img.alicdn.com/bao/uploaded/i4/O1CN01TWOpM42DSyY5nC0hM_!!0-mtopupload.jpg",
-		description: "计算机爱好者",
+		description: "行之，皆为乐意",
 	},
 	{
 		name: "fishcpy的小破站",
