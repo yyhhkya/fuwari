@@ -51,28 +51,28 @@ export const navBarConfig: NavBarConfig = {
 			external: false,
 		},
 		LinkPreset.About,
-		{
-			name: "其他",
-			url: "#",
-			external: false,
-			children: [
-				{
-					name: "常用脚本&资源",
-					url: "/scripts/",
-					external: false,
-				},
-				{
-					name: "用药感受",
-					url: "/sleep/",
-					external: false,
-				},
-				{
-					name: "状态",
-					url: "https://stats.uptimerobot.com/YVPkaXtQOH",
-					external: true,
-				},
-			],
-		},
+		// {
+		// 	name: "其他",
+		// 	url: "#",
+		// 	external: false,
+		// 	children: [
+		// 		{
+		// 			name: "常用脚本&资源",
+		// 			url: "/scripts/",
+		// 			external: false,
+		// 		},
+		// 		{
+		// 			name: "用药感受",
+		// 			url: "/sleep/",
+		// 			external: false,
+		// 		},
+		// 		{
+		// 			name: "状态",
+		// 			url: "https://stats.uptimerobot.com/YVPkaXtQOH",
+		// 			external: true,
+		// 		},
+		// 	],
+		// },
 	],
 };
 

@@ -19,38 +19,7 @@ export interface HeadData {
 export const headData: HeadData = {
 	// 统计代码 (如 Google Analytics, 百度统计等)
 	analytics: `
-    <!-- umami -->
-    <script defer src="https://umami.isyyo.com/script.js" data-website-id="d3682c95-5227-4159-aa30-8ed6badf1673"></script>
-    <!-- 百度统计 -->
-    <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?12d0f656c7436a01cad029f73d4702da";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-    <!-- 必应统计 -->
-    <meta name="msvalidate.01" content="3FC7E169138CD82EEBD2C94D56D2534E" />
-    <!-- 谷歌统计 -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HNTCZ055SX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-HNTCZ055SX');
-    </script>
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "uvoimo553n");
-    </script>
+  
   `,
 
 	// 自定义 meta 标签示例

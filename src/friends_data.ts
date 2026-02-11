@@ -9,83 +9,9 @@ export interface Friend {
 // 友链数据
 export const friends: Friend[] = [
 	{
-		name: "锴|一个神奇的角落",
-		url: "https://www.sorkai.com/",
-		avatar: "https://jsd.sorkai.com/web/3RVidO.th.jpg",
-		description:
-			"要有最朴实的生活和最遥远的梦想，即使明天天寒地冻、山高水远、路远马亡。",
-	},
-	{
-		name: "云烟成雨",
-		url: "https://shiyu.dev",
-		avatar: "https://q1.qlogo.cn/g?b=qq&nk=396823203&s=640",
-		description: "迷失的人迷失了，相逢的人会再相逢。",
-	},
-	{
-		name: "Eunie的博客",
-		url: "https://www.eunie.online/",
-		avatar: "https://www.eunie.online/upload/tMZ6yUjk7rxhCqQ.png",
-		description: "一个绝妙的余兴节目❥",
-	},
-	{
-		name: "世上云川",
-		url: "https://blog.ssyc.me",
-		avatar: "https://blog.ssyc.me/SSYC-icon.svg",
-		description: "若有韶月熹微，愿作流萤徂岁。",
-	},
-	{
-		name: "YoungLee的手帐",
-		url: "https://younglee.cn",
-		avatar: "https://younglee.cn/icon.svg",
-		description: "记录生活点滴",
-	},
-	{
-		name: "Yunsen的小窝",
-		url: "https://blog.imysen.com/",
-		avatar:
-			"https://img.alicdn.com/bao/uploaded/i4/O1CN01TWOpM42DSyY5nC0hM_!!0-mtopupload.jpg",
-		description: "行之，皆为乐意",
-	},
-	{
-		name: "fishcpy的小破站",
-		url: "https://blog.fis.ink",
-		avatar: "https://www.fis.ink/img/logo.png",
-		description: "非淡泊无以明志，非宁静无以致远",
-	},
-	{
-		name: "鈴奈咲桜のBlog",
-		url: "https://blog.sakura.ink",
-		avatar: "https://avatars.githubusercontent.com/u/91101909?v=4",
-		description: "愛することを忘れないで",
-	},
-	{
-		name: "星辰の笔记",
-		url: "https://blog.strarry.top",
-		avatar: "https://blog.strarry.top/avatar.jpg",
-		description: "Code | Think | Share | Repeat",
-	},
-	{
-		name: "Dignite’s Blog!",
-		url: "https://www.amzcd.top",
-		avatar: "https://www.amzcd.top/assets/img/avatar.png",
-		description: "When Nothing Goes Right, Go Left.",
-	},
-	{
-		name: "轻雅阁",
-		url: "https://www.puresky.top",
-		avatar: "https://www.puresky.top/upload/logo.png",
-		description: "新时代教师的日常",
-	},
-	{
-		name: "AcoFork Blog",
-		url: "https://2x.nz/",
-		avatar: "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=5",
-		description: "Protect What You Love!",
-	},
-	{
-		name: "The Blog",
-		url: "https://blog.5252025.xyz/",
-		avatar: "https://blog.5252025.xyz/img/icon-256.png",
-		description: "What is a blog?",
+		name: "Wer Blog",
+		url: "https://blog.isyyo.com/",
+		avatar: "https://blog.isyyo.com/favicon/logo.png",
+		description: "The only way to do great is to love what you do",
 	},
 ];
