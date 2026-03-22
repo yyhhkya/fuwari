@@ -83,9 +83,16 @@ export const friends: Friend[] = [
 		description: "Protect What You Love!",
 	},
 	{
+		name: "雪诺的小博客",
+		url: "https://blog.4365754.xyz/",
+		avatar: "https://photos.4365754.xyz/ac0cf34feb992487db7e63382418382dba213210.jpg",
+		description: "分享关于网络的众多有趣的小知识",
+	},
+	{
 		name: "The Blog",
 		url: "https://blog.5252025.xyz/",
 		avatar: "https://blog.5252025.xyz/img/icon-256.png",
 		description: "What is a blog?",
 	},
 ];
+
