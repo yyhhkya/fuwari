@@ -25,9 +25,3 @@ pnpm-debug.log*
 package-lock.json
 bun.lockb
 yarn.lock
-
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
-!.env.example
