@@ -19,8 +19,6 @@ export interface HeadData {
 export const headData: HeadData = {
 	// 统计代码 (如 Google Analytics, 百度统计等)
 	analytics: `
-    <!-- umami -->
-    <script defer src="https://umami.isyyo.com/script.js" data-website-id="d3682c95-5227-4159-aa30-8ed6badf1673"></script>
     <!-- 百度统计 -->
     <script>
     var _hmt = _hmt || [];
