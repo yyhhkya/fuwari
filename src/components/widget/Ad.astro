@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+import adImage from "../../assets/images/kitty.png";
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+const { class: className, style } = Astro.props;
+---
+<a href="https://kitty.sb/#/register?code=zSoHjHKP" target="_blank" rel="noopener noreferrer" class:list={[className]} style={style}>
+    <Image src={adImage} alt="广告" class="rounded-[var(--radius-large)] w-full h-auto" />
+</a>

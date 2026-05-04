@@ -1,5 +1,6 @@
 ---
 import type { MarkdownHeading } from "astro";
+import Ad from "./Ad.astro";
 import Categories from "./Categories.astro";
 import Profile from "./Profile.astro";
 import SiteUptime from "./SiteUptime.astro";
@@ -20,5 +21,6 @@ const className = Astro.props.class;
         <Categories class="onload-animation" style="animation-delay: 150ms"></Categories>
         <Tag class="onload-animation" style="animation-delay: 200ms"></Tag>
         <SiteUptime class="onload-animation" style="animation-delay: 250ms"></SiteUptime>
+        <Ad class="onload-animation" style="animation-delay: 300ms"></Ad>
     </div>
 </div>
