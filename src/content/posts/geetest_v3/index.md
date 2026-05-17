@@ -2,7 +2,7 @@
 title: 极验v3滑动拼图验证码逆向与绕过
 published: 2026-05-17T20:24:00
 description: '深入解析极验(Geetest) v3滑动验证码的逆向工程，从加密算法、轨迹模拟到缺口识别的完整破解'
-image: ''
+image: './cover.png'
 tags: ['逆向', '极验']
 category: '心得体会'
 draft: false
