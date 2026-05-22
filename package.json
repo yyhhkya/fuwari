@@ -28,7 +28,7 @@
     "@astrojs/tailwind": "^6.0.2",
     "@expressive-code/core": "^0.41.7",
     "@expressive-code/plugin-collapsible-sections": "^0.41.7",
-    "@expressive-code/plugin-line-numbers": "^0.41.7",
+    "@expressive-code/plugin-line-numbers": "^0.42.0",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource/roboto": "^5.2.10",
     "@iconify-json/fa6-brands": "^1.2.6",
