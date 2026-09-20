@@ -61,27 +61,14 @@ export const friends: Friend[] = [
 	{
 		name: "星辰の笔记",
 		url: "https://blog.strarry.top",
-		avatar: "https://blog.strarry.top/avatar.jpg",
+		avatar: "https://blog.strarry.top/favicon.ico",
 		description: "Code | Think | Share | Repeat",
-	},
-	{
-		name: "Dignite’s Blog!",
-		url: "https://www.amzcd.top",
-		avatar: "https://www.amzcd.top/assets/img/avatar.png",
-		description: "When Nothing Goes Right, Go Left.",
 	},
 	{
 		name: "轻雅阁",
 		url: "https://www.puresky.top",
 		avatar: "https://www.puresky.top/upload/logo.png",
 		description: "新时代教师的日常",
-	},
-	{
-		name: "雪诺的小博客",
-		url: "https://blog.4365754.xyz/",
-		avatar:
-			"https://photos.4365754.xyz/ac0cf34feb992487db7e63382418382dba213210.jpg",
-		description: "分享关于网络的众多有趣的小知识",
 	},
 	{
 		name: "The Blog",
