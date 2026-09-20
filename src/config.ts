@@ -52,6 +52,18 @@ export const navBarConfig: NavBarConfig = {
 		},
 		LinkPreset.About,
 		{
+			name: "工具",
+			url: "#",
+			external: false,
+			children: [
+				{
+					name: "封面图生成",
+					url: "/cover-generator/",
+					external: false,
+				},
+			],
+		},
+		{
 			name: "其他",
 			url: "#",
 			external: false,

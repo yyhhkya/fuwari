@@ -1,0 +1,32 @@
+---
+import CoverGenerator from "@components/tools/CoverGenerator.svelte";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { siteConfig } from "../config";
+
+const title = "封面图生成";
+const description =
+	"自由组合文字、图标与背景，实时预览并导出 1:1、4:3、16:9、21:9 封面。";
+---
+
+<MainGridLayout title={title} description={`${description} - ${siteConfig.title}`}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+        <div class="card-base z-10 px-4 md:px-9 pt-6 pb-6 relative w-full">
+            <div class="relative onload-animation">
+                <div class="transition w-full block font-bold mb-1
+                    text-3xl md:text-[2.25rem]/[2.75rem]
+                    text-black/90 dark:text-white/90
+                    md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+                    before:absolute before:top-[0.75rem] before:left-[-1.125rem]
+                ">
+                    {title}
+                </div>
+                <p class="text-sm text-black/50 dark:text-white/50 mb-6 onload-animation">
+                    {description}
+                </p>
+            </div>
+
+            <!-- client:only：组件依赖 canvas / Image / fetch，没有 SSR 的必要 -->
+            <CoverGenerator client:only="svelte" />
+        </div>
+    </div>
+</MainGridLayout>
