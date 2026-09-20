@@ -2,7 +2,7 @@
 title: 记录第一次域名被hold
 published: 2026-09-21T05:08:00
 description: ''
-image: ''
+image: './cover.png'
 tags: [域名]
 category: '闲言碎语'
 draft: false
