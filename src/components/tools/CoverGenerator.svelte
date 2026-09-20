@@ -85,10 +85,86 @@ let bgImageLabel = $state("");
 
 /* ---------------------------------------------------------------- 样式 */
 
+/** 字号 / 图标尺寸的滑块上下限；锁比例时按倍率收窄 */
+const FONT_SIZE_MIN = 16;
+const FONT_SIZE_MAX = 200;
+const ICON_SIZE_MIN = 24;
+const ICON_SIZE_MAX = 320;
+
 let fontSize = $state(64);
 let iconSize = $state(96);
 let iconRadius = $state(28);
 let gap = $state(28);
+
+/** 锁定图标与文字的比例：拖任一滑块，另一边按比例跟着走。默认锁上 */
+let lockSizes = $state(true);
+/** 锁定时保存的「图标 / 文字」倍率，默认 1.5 与初始尺寸一致 */
+let iconTextRatio = $state(1.5);
+
+const RATIO_PRESETS = [1, 1.5, 2];
+
+function clamp(value: number, min: number, max: number): number {
+	return Math.min(Math.max(value, min), max);
+}
+
+/*
+ * 锁比例后两个尺寸互相牵制，任一滑块都不能把另一边顶出上下限，
+ * 所以可用区间要按倍率收窄 —— 否则拖到底会出现「图标停在 320、文字继续涨」。
+ */
+const fontBounds = $derived.by(() => {
+	if (!lockSizes) {
+		return { min: FONT_SIZE_MIN, max: FONT_SIZE_MAX };
+	}
+	const min = Math.max(FONT_SIZE_MIN, Math.ceil(ICON_SIZE_MIN / iconTextRatio));
+	const max = Math.min(FONT_SIZE_MAX, Math.floor(ICON_SIZE_MAX / iconTextRatio));
+	return { min, max: Math.max(min, max) };
+});
+
+const iconBounds = $derived.by(() => {
+	if (!lockSizes) {
+		return { min: ICON_SIZE_MIN, max: ICON_SIZE_MAX };
+	}
+	const min = Math.max(ICON_SIZE_MIN, Math.ceil(FONT_SIZE_MIN * iconTextRatio));
+	const max = Math.min(ICON_SIZE_MAX, Math.floor(FONT_SIZE_MAX * iconTextRatio));
+	return { min, max: Math.max(min, max) };
+});
+
+/** 拖滑块入口：source 是用户正在拖的那一边 */
+function applySize(value: number, source: "font" | "icon"): void {
+	if (!lockSizes) {
+		if (source === "font") {
+			fontSize = clamp(Math.round(value), FONT_SIZE_MIN, FONT_SIZE_MAX);
+		} else {
+			iconSize = clamp(Math.round(value), ICON_SIZE_MIN, ICON_SIZE_MAX);
+		}
+		return;
+	}
+	if (source === "font") {
+		fontSize = clamp(Math.round(value), fontBounds.min, fontBounds.max);
+		iconSize = clamp(Math.round(fontSize * iconTextRatio), ICON_SIZE_MIN, ICON_SIZE_MAX);
+	} else {
+		iconSize = clamp(Math.round(value), iconBounds.min, iconBounds.max);
+		fontSize = clamp(Math.round(iconSize / iconTextRatio), FONT_SIZE_MIN, FONT_SIZE_MAX);
+	}
+}
+
+function toggleLockSizes(): void {
+	if (!lockSizes && fontSize > 0) {
+		// 以当前尺寸为准记下倍率，锁上时画面不跳
+		iconTextRatio = iconSize / fontSize;
+	}
+	lockSizes = !lockSizes;
+	if (lockSizes) {
+		applySize(fontSize, "font");
+	}
+}
+
+/** 锁定时换倍率：以当前字号为基准重新套用，越界就整体缩回去 */
+function setIconTextRatio(next: number): void {
+	iconTextRatio = next;
+	iconSize = clamp(Math.round(fontSize * next), ICON_SIZE_MIN, ICON_SIZE_MAX);
+	fontSize = clamp(Math.round(iconSize / next), FONT_SIZE_MIN, FONT_SIZE_MAX);
+}
 
 let textColor = $state("#111111");
 let iconColor = $state("#111111");
@@ -912,15 +988,56 @@ function download(): void {
             {#if tab === "style"}
                 <!-- 尺寸 -->
                 <section class="flex flex-col gap-3">
-                    <h3 class="text-sm font-bold text-black/80 dark:text-white/80">尺寸设置</h3>
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <h3 class="text-sm font-bold text-black/80 dark:text-white/80">尺寸设置</h3>
+                        <div class="flex items-center gap-1.5">
+                            {@render switchToggle(
+                                lockSizes,
+                                toggleLockSizes,
+                                "锁定图标与文字比例",
+                            )}
+                            <span class="text-xs text-black/50 dark:text-white/50">锁定比例</span>
+                        </div>
+                    </div>
+                    {#if lockSizes}
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs text-black/50 dark:text-white/50">
+                                图标 / 文字 = {iconTextRatio.toFixed(2)}×
+                            </span>
+                            {#each RATIO_PRESETS as preset (preset)}
+                                <button
+                                    class="rounded-lg h-7 px-2.5 text-xs transition
+                                        {iconTextRatio === preset
+                                            ? 'bg-[var(--primary)] text-white'
+                                            : 'bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 hover:bg-[var(--btn-regular-bg-hover)]'}"
+                                    onclick={() => setIconTextRatio(preset)}
+                                >{preset}×</button>
+                            {/each}
+                            <span class="text-xs text-black/40 dark:text-white/40">拖任一滑块整体缩放</span>
+                        </div>
+                    {/if}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <label class="flex flex-col gap-1">
                             <span class="text-xs text-black/50 dark:text-white/50">字体大小 <b class="text-[var(--primary)]">{fontSize}px</b></span>
-                            <input type="range" min="16" max="200" bind:value={fontSize} />
+                            <input
+                                type="range"
+                                min={fontBounds.min}
+                                max={fontBounds.max}
+                                step="1"
+                                value={fontSize}
+                                oninput={(event) => applySize(Number(event.currentTarget.value), "font")}
+                            />
                         </label>
                         <label class="flex flex-col gap-1">
                             <span class="text-xs text-black/50 dark:text-white/50">图标大小 <b class="text-[var(--primary)]">{iconSize}px</b></span>
-                            <input type="range" min="24" max="320" bind:value={iconSize} />
+                            <input
+                                type="range"
+                                min={iconBounds.min}
+                                max={iconBounds.max}
+                                step="1"
+                                value={iconSize}
+                                oninput={(event) => applySize(Number(event.currentTarget.value), "icon")}
+                            />
                         </label>
                         <label class="flex flex-col gap-1">
                             <span class="text-xs text-black/50 dark:text-white/50">图标圆角 <b class="text-[var(--primary)]">{iconRadius}%</b></span>
