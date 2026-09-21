@@ -23,6 +23,31 @@ const currentYear = new Date().getFullYear();
         <a class="transition link text-[var(--primary)] font-medium" href="https://beian.mps.gov.cn/#/query/webSearch?code=44195502000155" rel="noreferrer" target="_blank">粤公网安备44195502000155号</a><br>
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://icp.gov.moe/?keyword=20251971">萌ICP备20251971号</a> | 
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://icp.sakura.ink/beian?code=1907010000">樱ICP备1907010000号</a><br>
-        <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://www.foreverblog.cn/blog/7084/cert.html">本站已加入十年之约</a>
+        <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://www.foreverblog.cn/blog/7084/cert.html">本站已加入十年之约</a><br>
+        本站已运行 <span id="uptime-years">0</span> 年 <span id="uptime-days">0</span> 天
     </div>
 </div>
+
+<script>
+    const startDate = new Date('2019-07-01');
+
+    function updateUptime() {
+        const now = new Date();
+        let years = now.getFullYear() - startDate.getFullYear();
+        const anniversary = new Date(startDate);
+        anniversary.setFullYear(startDate.getFullYear() + years);
+        if (anniversary > now) {
+            years--;
+            anniversary.setFullYear(startDate.getFullYear() + years);
+        }
+        const days = Math.floor((now.getTime() - anniversary.getTime()) / 86400000);
+
+        const yearsEl = document.getElementById('uptime-years');
+        const daysEl = document.getElementById('uptime-days');
+        if (yearsEl) yearsEl.textContent = years.toString();
+        if (daysEl) daysEl.textContent = days.toString();
+    }
+
+    updateUptime();
+    setInterval(updateUptime, 60000);
+</script>

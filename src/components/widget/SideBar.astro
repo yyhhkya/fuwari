@@ -3,7 +3,6 @@ import type { MarkdownHeading } from "astro";
 import Ad from "./Ad.astro";
 import Categories from "./Categories.astro";
 import Profile from "./Profile.astro";
-import SiteUptime from "./SiteUptime.astro";
 import Tag from "./Tags.astro";
 
 interface Props {
@@ -20,7 +19,6 @@ const className = Astro.props.class;
     <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
         <Categories class="onload-animation" style="animation-delay: 150ms"></Categories>
         <Tag class="onload-animation" style="animation-delay: 200ms"></Tag>
-        <SiteUptime class="onload-animation" style="animation-delay: 250ms"></SiteUptime>
-        <Ad class="onload-animation" style="animation-delay: 300ms"></Ad>
+        <Ad class="onload-animation" style="animation-delay: 250ms"></Ad>
     </div>
 </div>
