@@ -50,4 +50,8 @@ const currentYear = new Date().getFullYear();
 
     updateUptime();
     setInterval(updateUptime, 60000);
+
+    // swup 切页只替换 DOM，脚本模块不重新执行，需在内容替换后重算
+    document.addEventListener('swup:contentReplaced', updateUptime);
+    document.addEventListener('astro:page-load', updateUptime);
 </script>
